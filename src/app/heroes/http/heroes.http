@@ -1,2 +1,12 @@
 @api = http://localhost:3000
 GET {{api}}/heroes
+
+###
+
+POST {{ api }}/heroes
+Content-Type: application/json
+
+{
+    "superhero"     :   "Fernando",
+    "publisher"     :   "Dc Comics"
+}

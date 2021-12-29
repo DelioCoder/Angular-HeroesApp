@@ -8,6 +8,9 @@ import { Heroe } from '../../../interfaces/heroes.interface';
     mat-card {
       margin-top: 20px;
     }
+    button {
+      margin-right: 10px;
+    }
   `
   ]
 })
