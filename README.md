@@ -49,3 +49,21 @@ CRUD
 - Dialogs
 
 - Inyección de servicios manualmente
+
+### Git version (" Routes Protection "):
+
+- Protección de rutas
+
+- Rutas privadas
+
+- Rutas públicas
+
+- Servicio de autenticación
+
+- Guards
+
+- CanActivate
+
+- Can Load
+
+- Mantener la sesión del usuario
