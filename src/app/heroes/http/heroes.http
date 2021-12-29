@@ -10,3 +10,7 @@ Content-Type: application/json
     "superhero"     :   "Fernando",
     "publisher"     :   "Dc Comics"
 }
+
+###
+GET {{ api }}/usuarios/1
+Content-Type: application/json
