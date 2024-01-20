@@ -52,11 +52,11 @@ export class AgregarComponent implements OnInit {
       return;
     }
 
-    this.activatedRoute.params
-      .pipe(
-        switchMap(({ id }) => this.heroesService.getHeroePorId(id))
-      )
-      .subscribe(heroe => this.heroe = heroe);
+    // this.activatedRoute.params
+    //   .pipe(
+    //     switchMap(({ id }) => this.heroesService.getHeroePorId(id))
+    //   )
+    //   .subscribe(heroe => this.heroe = heroe);
   }
 
   guardar() {

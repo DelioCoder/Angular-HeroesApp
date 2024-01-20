@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, tap } from 'rxjs';
+import { delay, switchMap, tap } from 'rxjs';
 import { Heroe } from '../../interfaces/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
 @Component({
@@ -15,7 +15,7 @@ import { HeroesService } from '../../services/heroes.service';
 })
 export class HeroeComponent implements OnInit {
 
-  heroe!  : Heroe;
+  heroe?  : Heroe;
   hayError: boolean = false;
 
   constructor( 
@@ -31,14 +31,12 @@ export class HeroeComponent implements OnInit {
         switchMap( ({ id }) => this.heroeService.getHeroePorId( id ) ),
         tap( console.log )
       )
-      .subscribe({
-        next: ( heroe ) => {
+      .subscribe(heroe =>{
+          if(!heroe) return this.router.navigate([ '/heroes/listado' ]);
+
           this.heroe = heroe;
-        },
-        error: ( err ) => {
-          this.hayError = true;
-          this.heroe != undefined;
-        }
+
+          return;
       })
   }
 

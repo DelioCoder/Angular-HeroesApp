@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Heroe } from '../../interfaces/heroes.interface';
 import { HeroesService } from '../../services/heroes.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-buscar',
@@ -13,38 +14,39 @@ export class BuscarComponent implements OnInit {
 
   termino: string = '';
   heroes: Heroe[] = [];
-  heroeSeleccionado: Heroe | undefined;
+  selectedHeroe: Heroe | undefined;
+
+  public searchInput = new FormControl('');
 
   constructor( private heroesService: HeroesService ) { }
 
   ngOnInit(): void {
   }
 
-  buscando() {
-    this.heroesService.getSugerencias( this.termino.trim() )
-      .subscribe({
-        next: ( heroes ) => {
-          this.heroes = heroes
-        }
-      });
-  }
+  searchHero()
+  {
+      const value: string = this.searchInput.value || '';
 
-  opcionSeleccionada( event: MatAutocompleteSelectedEvent ) {
+      this.heroesService.getSugerencias(value)
+        .subscribe( heroes => this.heroes = heroes );
+  } 
 
-    if(!event.option.value) {
-      this.heroeSeleccionado = undefined;
+  onSelectedOption( e: MatAutocompleteSelectedEvent )
+  {
+    
+    if ( !e.option.value )
+    {
+
+      this.selectedHeroe = undefined;
+
       return;
     }
 
-    const heroe: Heroe = event.option.value;
-    this.termino = heroe.superhero;
+    const hero: Heroe = e.option.value;
+    this.searchInput.setValue( hero.superhero );
 
-    this.heroesService.getHeroePorId( heroe.id! )
-      .subscribe({
-        next: (heroe) => {
-          this.heroeSeleccionado = heroe;
-        }
-      });
+    this.selectedHeroe = hero;
+
   }
 
 }

@@ -20,6 +20,10 @@ export class HeroeTarjetaComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+
+    if (!this.heroe) throw Error('Hero property is required');
+
+  }
 
 }

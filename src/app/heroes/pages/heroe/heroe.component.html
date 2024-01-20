@@ -1,45 +1,49 @@
-<mat-grid-list cols="1" *ngIf="!heroe; else divHeroe">
-    <mat-grid-tile>
-        <mat-spinner></mat-spinner>
-    </mat-grid-tile>
-</mat-grid-list>
-
-<ng-template #divHeroe>
-    
-    <div 
-        fxLayout="row"
-        fxLayout.xs="column"
-        fxLayoutGap="30px"
-    >
-
-        <div fxFlex="50">
-            <h1>{{ heroe.superhero }} <small>- {{ heroe.alter_ego }}</small></h1>
-            <mat-divider></mat-divider>
-            <br>
-            <img [src]="heroe | imagen">
-        </div>
-
-        <div fxFlex="50">
-            <h1>{{ heroe.publisher  }}</h1>
-            <mat-divider></mat-divider>
-
-            <mat-list>
-                <mat-list-item>{{ heroe.first_appearance }}</mat-list-item>
-                <mat-list-item>{{ heroe.characters }}</mat-list-item>
-                <mat-list-item>{{ heroe.publisher }}</mat-list-item>
-                <mat-list-item>{{ heroe.alter_ego }}</mat-list-item>
-            </mat-list>
-
-            <br>
-            <button 
-                mat-button 
-                color="warn"
-                (click)="regresar()"
-            >
-                Regresar
-            </button>
-        </div>
-
-    </div>
-    
+<ng-template #divLoading>
+    <mat-grid-list cols="1">
+        <mat-grid-tile>
+            <mat-spinner></mat-spinner>
+        </mat-grid-tile>
+    </mat-grid-list>
 </ng-template>
+
+<div class="mx-4 my-12" *ngIf="heroe; else divLoading">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <img [src]="heroe | imagen" alt="heroe.superhero" class="w-2/6 h-3/6 object-cover object-top shadow-lg">
+        </div>
+        <div class="text-lg">
+            <p class="text-center text-5xl font-black">{{ heroe.superhero }}</p>
+            <p class="text-center text-gray-400 font-medium">{{ heroe.alter_ego }}</p>
+            <mat-divider></mat-divider>
+            <div class="my-4">
+                <strong>Editorial: </strong><span>{{ heroe.publisher }}</span>
+            </div>
+            <div class="my-4">
+                <strong>Primera Aparición: </strong><span>{{ heroe.first_appearance }}</span>
+            </div>
+            <div class="my-4">
+                <strong>Personajes: </strong>
+            </div>
+            <div class="my-4">
+                <mat-chip-list >
+                    <mat-chip *ngFor="let name of heroe.characters.split(',')">
+                        {{ name }}
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+
+            <mat-divider></mat-divider>
+            <div class="my-4">
+                <button
+                    mat-button
+                    (click)="regresar()"
+                    color="primary"
+                >
+                    Regresar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

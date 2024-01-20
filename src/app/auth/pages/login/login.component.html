@@ -1,19 +1,32 @@
-<mat-grid-list cols="1">
-    <mat-grid-tile>
-        <button 
-            mat-raised-button 
-            color="primary"
-            (click)="login()"
-        >
-            Ingresar
-        </button>
+<div class="background w-screen h-screen">
+    <div class="flex flex-col md:flex-row flex-wrap w-full h-full justify-center items-center">
 
-        <button 
-            mat-raised-button 
-            color="warn"
-            (click)="ingresarSinLogin()"
-        >
-            Ingresar sin login
-        </button>
-    </mat-grid-tile>
-</mat-grid-list>
+        <div class="mx-8 md:mx-0 md:w-2/6 p-8 bg-white shadow-lg rounded-lg">
+        
+            <div class="w-full text-center">
+                <span class="text-4xl mb-4 w-full">Login</span>
+            </div>  
+        
+            <mat-form-field class="w-full my-6">
+                <mat-label>Usuario</mat-label>
+                <input matInput placeholder="Nombre de Usuario">
+            </mat-form-field>
+        
+            <mat-form-field class="w-full my-6">
+                <mat-label>Contraseña</mat-label>
+                <input type="password" matInput placeholder="Contraseña">
+            </mat-form-field>
+        
+            <button mat-raised-button color="primary" class="w-full">
+                <mat-icon>save</mat-icon>
+                Ingresar
+            </button>
+        
+            <div class="flex justify-end mt-5">
+                <a routerLink="/auth/registro">¿Aún no tienes cuenta?</a>
+            </div>
+
+        </div>
+    </div>
+    
+</div>

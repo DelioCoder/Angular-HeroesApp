@@ -1,0 +1,5 @@
+::ng-deep .background{
+    background-image: url('src\assets\heroes\marvel-background.jpg');
+    background-position: center;
+    background-size: cover;
+}
