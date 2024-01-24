@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Auth } from '../interfaces/auth.interface';
-import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable, of, tap, map, catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,26 +18,34 @@ export class AuthService {
 
   constructor( private _http: HttpClient ) { }
 
-  verificarAutenticacion(): Observable<boolean> {
-    if ( !localStorage.getItem('token') ) {
-      return of(false);
-    }
+  checkAuthentication(): Observable<boolean> {
+    
+    if ( !localStorage.getItem('token')) return of(false);
 
-    return this._http.get<Auth>(`${ this.baseUrl }/usuarios/1`).pipe(
-      //Sirve para transformar lo que se reciba del Observable y transformarlo para devolverlo.
-      map( auth => {
-        this._auth = auth;
-        return true;
-      })
-    )
+    return this._http.get<Auth>(`${ this.baseUrl }/users/1`)
+      .pipe(
+        tap(user => this._auth = user),
+        map( user => !!user ),
+        catchError( err => of(false) )
+      )
+
   }
 
-  login() {
-    return this._http.get<Auth>(`${ this.baseUrl }/usuarios/1`).pipe( tap( auth => this._auth = auth ), tap( auth => localStorage.setItem('token', auth.id) ) );
+  login(): Observable<Auth> {
+  
+    return this._http.get<Auth>(`${ this.baseUrl }/users/1`)
+      .pipe(
+        tap( user => {
+          this._auth = user;  
+        }),
+        tap(user => localStorage.setItem('token', user.id.toString()))
+      )
+
   }
 
   logout() {
     this._auth = undefined;
+    localStorage.clear();
   }
 
 }

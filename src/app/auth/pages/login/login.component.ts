@@ -17,23 +17,11 @@ export class LoginComponent {
 
   login() {
 
-    // Ir al backend
-    // Un usuario
     this.authService.login()
-      .subscribe({
-        next: ( resp ) => {
-          console.log(resp);
-
-          if ( resp.id ) {
-            this.router.navigate(['./heroes']);
-          }
-        }
-      })
+      .subscribe(user => {
+        this.router.navigate(['/heroes/listado']);
+      });
 
   }
-  ingresarSinLogin() {
-    this.authService.logout();
-    this.router.navigate(['./heroes']);
-  }
-
+  
 }

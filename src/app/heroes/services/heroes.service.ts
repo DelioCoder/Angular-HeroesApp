@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 
 import { Heroe } from '../interfaces/heroes.interface';
 import { environment } from '../../../environments/environment';
@@ -35,11 +35,15 @@ export class HeroesService {
   }
 
   actualizarHeroe( heroe: Heroe ): Observable<Heroe> {
-    return this.http.put<Heroe>(`${ this.baseUrl }/heroes/${ heroe.id }`, heroe);
+    return this.http.patch<Heroe>(`${ this.baseUrl }/heroes/${ heroe.id }`, heroe);
   }
 
   borrarHeroe( id: string ): Observable<any> {
-    return this.http.delete<any>(`${ this.baseUrl }/heroes/${ id }`);
+    return this.http.delete<any>(`${ this.baseUrl }/heroes/${ id }`)
+      .pipe(
+        map( resp => true ),
+        catchError( err => of(false) ),
+      );
   }
 
 }

@@ -1,3 +1,5 @@
+import { FormControl } from "@angular/forms";
+
 export interface Heroe {
     id?:               string;
     superhero:        string;

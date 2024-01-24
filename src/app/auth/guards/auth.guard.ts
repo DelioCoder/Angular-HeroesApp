@@ -17,7 +17,7 @@ export class AuthGuard implements CanLoad, CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       
-      return this.authService.verificarAutenticacion().pipe(
+      return this.authService.checkAuthentication().pipe(
         tap( estaAutenticado => {
           if ( !estaAutenticado ) {
             this.router.navigate(['./auth/login']);
@@ -35,7 +35,7 @@ export class AuthGuard implements CanLoad, CanActivate {
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | boolean {
     
-      return this.authService.verificarAutenticacion().pipe(
+      return this.authService.checkAuthentication().pipe(
         tap( estaAutenticado => {
           if ( !estaAutenticado ) {
             this.router.navigate(['./auth/login']);
